@@ -44,7 +44,17 @@ def custom_login(request):
         if user_auth:
             # Faz login
             auth_login(request, user_auth)
-            return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+            # return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+            user = user_auth
+            # Redireciona o Responsável Principal para completar o cadastro dele.
+            if has_group(user, 'responsavel_principal'):
+                responsavel = Responsavel.objects.get(user=user)
+                if responsavel.parentesco_do_responsavel:
+                    return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+                else:
+                    return redirect(resolve_url('responsavel_edit', pk=responsavel.pk))
+            else:
+                return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
 
         # Caso não esteja autenticado.
         messages.add_message(request, constants.ERROR, 'Senha errada!')
@@ -69,9 +79,3 @@ class CustomLoginView(LoginView):
         else:
 
             return resolve_url(settings.LOGIN_REDIRECT_URL)
-
-    def form_invalid(self, form):
-        """If the form is invalid, render the invalid form."""
-        # TODO: This is EXTREMELY HACKY!
-        if form.errors:
-            print(form.errors)
