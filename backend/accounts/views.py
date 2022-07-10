@@ -1,14 +1,17 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.conf import settings
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render, resolve_url
 from django.urls import reverse_lazy
-from urllib import request
 from django.contrib import messages
 from django.contrib.messages import constants
 from backend.core.services import has_group
 from backend.crm.models import Responsavel
 from .forms import ResponsavelPrincipalForm
 from .services import responsavel_principal_create
+
 
 def responsavel_principal_add(request):
     template_name = 'accounts/responsavel_principal_add.html'
@@ -23,6 +26,29 @@ def responsavel_principal_add(request):
             return redirect(success_url)
 
     context = {'form': form}
+
+    return render(request, template_name, context)
+
+
+def custom_login(request):
+    template_name = 'accounts/login.html'
+    form = AuthenticationForm(request.POST or None)
+    context = {'form': form}
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # Autentica
+        user_auth = authenticate(username=username, password=password)
+
+        if user_auth:
+            # Faz login
+            auth_login(request, user_auth)
+            return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+
+        # Caso não esteja autenticado.
+        messages.add_message(request, constants.ERROR, 'Senha errada!')
+        return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
 
     return render(request, template_name, context)
 
@@ -44,4 +70,8 @@ class CustomLoginView(LoginView):
 
             return resolve_url(settings.LOGIN_REDIRECT_URL)
 
-
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        # TODO: This is EXTREMELY HACKY!
+        if form.errors:
+            print(form.errors)

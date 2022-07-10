@@ -19,10 +19,10 @@
               {% csrf_token %}
 
               <label>Email</label>
-              <input name="username" class="form-control" type="email" placeholder="Email..." autofocus>
+              <input id="id_username" name="username" class="form-control" type="email" placeholder="Email..." autofocus>
               <br>
               <label>Senha</label>
-              <input name="password" class="form-control" type="password" placeholder="Senha...">
+              <input id="id_password" name="password" class="form-control" type="password" placeholder="Senha...">
               <br>
               <input class="btn btn-info btn-lg" type="submit" value="Enviar">
               <a href="{% url 'responsavel_principal_add' %}" class="btn btn-warning btn-lg">Cadastro</a>
