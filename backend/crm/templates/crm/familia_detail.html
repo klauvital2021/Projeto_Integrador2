@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+
+
+
+       <div class="container">
+         <h4>Detalhes da Família </h4>
+
+         <table class="table">
+           <tbody>
+            <tr>
+              <td>Nome</td>
+              <td>{{ object.nome }}</td>
+            </tr>
+
+            <tr>
+              <td>Endereço</td>
+              <td>{{ object.endereco|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Bairro</td>
+              <td>{{ object.bairro|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Cidade</td>
+              <td>{{ object.cidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>UF</td>
+              <td>{{ object.get_uf_display|default:"---" }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+          <a class ="btn btn-success" href="{% url 'familia_list' %}" >Voltar</a>
+       </div>
+
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %} Consultas {% endblock %}
+
+{% block content %}
+  <div class = "card">
+    <div class="card-body">
+      <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+      <h5> Lista Consultas </h5>
+      <hr>
+      <a class ="btn btn-success" href="{% url 'consulta_add'  %}">Adicionar</a>
+      <table class = "table table-striped">
+        <thead>
+          <tr>
+            <th>Data </th>
+            <th>Hora</th>
+            <th>Especialidade</th>
+            <th>Dependente</th>
+            <th>Médico(a)</th>
+            <th>Atendimento</th>
+            <th>Acompanhante</th>
+            <th>Cancelamento</th>
+            <th>Editar/Deletar</th>
+            <th>Pós Consulta</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%  for object in object_list %}
+
+            <tr>
+              <td><a href="{{ object.get_absolute_url }}">{{ object.data_consulta|date:"d/m/Y" }}</a></td>
+
+              <td>{{ object.hora }}</td>
+              <td>{{ object.get_especialidade_display|default:"---" }} </td>
+              <td>{{objetc.consulta.dependente.nome }}</td>
+              <td>{{ object.nome_especialista|default:"---" }} </td>
+              <td>{{ object.get_atendimento_display|default:"---" }} </td>
+             <td>{{ object.acompanhante_responsavel|default:"---" }} </td>
+              <td>{{ object.cancelamento|default:"---" }} </td>
+              <td>
+                <a class ="btn btn-warning btn-sm" href="{% url 'consulta_edit' object.pk %}">Editar</a>
+              </td>
+              <td>
+                {% if object.pos_consultas.all %}
+                  <a class="btn btn-primary btn-sm" href="{% url 'posconsulta_list' %}">Pós Consulta</a>
+                {% else %}
+                  <a class="btn btn-success btn-sm" href="{% url 'posconsulta_add' %}">Criar Pós Consulta</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}

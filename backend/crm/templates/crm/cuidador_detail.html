@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+  <div class="container">
+    <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+    <h4> Detalhes do Cuidador </h4>
+    <div class="card">
+
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Nome</td>
+              <td>{{ object.user.get_full_name }}</td>
+            </tr>
+
+            <tr>
+              <td>Família</td>
+              <td>{{ object.familia|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Data de Nascimento</td>
+              <td>{{ object.data_nascimento|date:"d/m/Y"|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>RG</td>
+              <td>{{ object.rg|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>CPF</td>
+              <td>{{ object.cpf|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>WhatsApp</td>
+              <td>{{ object.celular_whatsapp|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Celular Recado</td>
+              <td>{{ object.celular_recado|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Estado Civil</td>
+              <td>{{ object.get_estado_civil_display|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Nome Cônjuge</td>
+              <td>{{ object.nome_conjuge|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Nacionalidade</td>
+              <td>{{ object.nacionalidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Endereço</td>
+              <td>{{ object.endereco|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Bairro</td>
+              <td>{{ object.bairro|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Cidade</td>
+              <td>{{ object.cidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>UF</td>
+              <td>{{ object.get_uf_display|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Data Início</td>
+              <td>{{ object.data_inicio|date:"d/m/Y"|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Data Fim</td>
+              <td>{{ object.data_fim|date:"d/m/Y"|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Regime Contratação</td>
+              <td>{{ object.get_regime_contratacao_display|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Carga Horária Semanal</td>
+              <td>{{ object.carga_horaria_semanal|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Turno Trabalho</td>
+              <td>{{ object.get_turno_trabalho_display|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Quem Indicou</td>
+              <td>{{ object.quem_indicou|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Salário Atual</td>
+              <td>{{ object.salario_atual|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Adicional</td>
+              <td>{{ object.adicional|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Dia Pagamento</td>
+              <td>{{ object.dia_pagamento|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Observação</td>
+              <td>{{ object.observacao|default:"---" }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a class ="btn btn-success" href="{% url 'cuidador_list' %}" >Voltar</a>
+  </div>
+{% endblock content %}

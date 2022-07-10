@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %} Responsáveis {% endblock %}
+{% block content %}
+
+
+    <div class="card-body">
+      <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+      <h5>
+        Lista Responsáveis
+        <a class ="btn btn-success" href="{% url 'responsavel_add' %}"
+        >Adicionar</a>
+      </h5>
+
+      <form action="." method="POST">
+        <table class = "table table-striped">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>E-mail</th>
+              <th>Data nascimento</th>
+              <th>Cidade</th>
+              <th>Celular - WhatsApp</th>
+              <th>Parentesco</th>
+              <th>Acões</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%  for object in object_list %}
+              {% csrf_token %}
+              <tr>
+                <td>
+                  <a href="{{ object.get_absolute_url }}">{{ object.user.get_full_name }}</a>
+                </td>
+                <td>{{ object.cpf|default:"---" }}</td>
+                <td>{{ object.user.email }} </td>
+                <td>{{ object.data_nascimento|date:"d/m/Y"|default:"---" }} </td>
+                <td>{{ object.cidade|default:"---" }} </td>
+                <td>{{ object.celular_whatsapp|default:"---" }} </td>
+                <td>{{ object.get_parentesco_do_responsavel_display|default:"---" }} </td>
+                <td>
+                  <a class ="btn btn-warning btn-sm" href="{% url 'responsavel_edit' object.id %}">Editar</a>
+                  <span
+                    id="linkDeletar"
+                    class ="btn btn-danger btn-sm"
+                    hx-delete="{% url 'responsavel_delete' object.pk %}"
+                    hx-confirm="Deseja mesmo deletar?"
+                    hx-target="closest tr"
+                    hx-swap="outerHTML swap:500ms"
+                  >
+                    Excluir
+                  </span>
+                </td>
+              </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    htmx.on("htmx:afterSwap", function(evt) {
+      if (evt.target.id == 'linkDeletar'
+      ) {
+        location.reload();
+      }
+    });
+  </script>
+{% endblock js %}

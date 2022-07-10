@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h4> <b><label>{{ user.get_full_name }} - Familia {{ familia}}</label></b></h4>
+      <hr>
+      <a href="{% url 'dependente_list' %}" class ="btn btn-warning">Voltar</a>
+      <hr>
+      <h5><b>Dependente</b></h5>
+      <hr>
+      <form action="." method="POST">
+        {% csrf_token %}
+
+        <div class="col-sm-6">
+          {{  form|bootstrap }}
+        </div>
+
+        <button class ="btn btn-success" type="submit">Salvar</button>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

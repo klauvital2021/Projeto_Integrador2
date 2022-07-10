@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+  <div class="container">
+    <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+    <h4> Detalhes do Medicamento </h4>
+    <div class="card">
+
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+
+            <tr>
+              <td>Dependente</td>
+              <td>{{object.dependente|default:"---"}}</td>
+            </tr>
+
+            <tr>
+              <td>Medicamento</td>
+              <td>{{object.medicamento_prescrito|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Princio Ativo</td>
+              <td>{{object.principio_ativo|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Indicações</td>
+              <td>{{object.indicacoes|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Tipo</td>
+              <td>{{object.get_tipo_medicamento_display|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Dosagem</td>
+              <td>{{object.dosagem|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Posologia</td>
+              <td>{{object.get_posologia_display|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Uso Contínuo</td>
+              <td>{{object.uso_continuo|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Inicio Tratamento</td>
+              <td>{{object.data_inicio|date:"d/m/Y"|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Fim Tratamento</td>
+              <td>{{object.data_fim|date:"d/m/Y"|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Forma de Uso</td>
+              <td>{{object.forma_uso}} </td>
+            </tr>
+            <tr>
+              <td>Orientações</td>
+              <td>{{object.orientacao_tratamento|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Médico Responsável</td>
+              <td>{{ object.medico_responsável|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Fornecedor Principal</td>
+              <td>{{ object.fornecedor_principal|default:"---" }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a class ="btn btn-success" href="{% url 'consulta_list' %}" >Voltar</a>
+  </div>
+{% endblock content %}

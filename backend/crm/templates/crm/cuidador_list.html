@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %} Cuidadores {% endblock %}
+{% block content %}
+  <div class = "card">
+
+    <div class="card-body">
+      <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+      <h5>
+        Lista Cuidadores
+        <a
+          class ="btn btn-success"
+          href="{% url 'cuidador_add' %}"
+        >Adicionar</a>
+      </h5>
+      <table class = "table table-striped">
+        <thead>
+
+          <tr>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Cidade</th>
+            <th>Cel/Whats</th>
+            <th>Ativo</th>
+            <th>Admissão</th>
+            <th>Demissao</th>
+            <th>Contratação</th>
+            <th>Carga Horária</th>
+            <th>Turno</th>
+            <th>Salario</th>
+            <th>Adicional</th>
+            <th>Dia de pagamento</th>
+            <th>Acões</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%  for object in object_list %}
+
+            <tr>
+              <td>
+                <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+              </td>
+              <td>{{ object.data_nascimento|date:"d/m/Y"|default:"---" }}</td>
+              <td>{{ object.cidade|default:"---" }} </td>
+              <td>{{ object.celular_whatsapp|default:"---" }} </td>
+              <td>{{ object.active|yesno:"Sim,Não" }} </td>
+              <td>{{ object.data_inicio|date:"d/m/Y"|default:"---" }} </td>
+              <td>{{ object.data_fim|date:"d/m/Y"|default:"---" }} </td>
+              <td>{{ object.get_regime_contratacao_display|default:"---" }} </td>
+              <td>{{ object.carga_horaria_semanal|default:"---" }} </td>
+              <td>{{ object.get_turno_trabalho_display|default:"---" }} </td>
+              <td>{{ object.salario_atual|default:"---" }} </td>
+              <td>{{ object.adicional|default:"---" }} </td>
+              <td>{{ object.dia_pagamento|default:"---" }} </td>
+
+              <td>
+                <a class ="btn btn-warning btn-sm" href="{% url 'cuidador_edit' object.pk %}">Editar</a>
+                <span
+                  id="linkDeletar"
+                  class ="btn btn-danger btn-sm"
+                  hx-delete="{% url 'cuidador_delete' object.pk %}"
+                  hx-confirm="Deseja mesmo deletar?"
+                  hx-target="closest tr"
+                  hx-swap="outerHTML swap:500ms"
+                >
+                  Excluir
+                </span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    htmx.on("htmx:afterSwap", function(evt) {
+      if (evt.target.id == 'linkDeletar'
+      ) {
+        location.reload();
+      }
+    });
+  </script>
+{% endblock js %}

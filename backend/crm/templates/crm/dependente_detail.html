@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+  <div class="container">
+    <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+    <h4>Detalhes da Dependente </h4>
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Nome</td>
+              <td>{{ object.user.get_full_name }}</td>
+            </tr>
+
+            <tr>
+              <td>Família</td>
+              <td>{{ object.familia|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Data de Nascimento</td>
+              <td>{{ object.data_nascimento|date:"d/m/Y"|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>RG</td>
+              <td>{{ object.rg|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>CPF</td>
+              <td>{{ object.cpf|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>WhatsApp</td>
+              <td>{{ object.celular_whatsapp|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Celular Recado</td>
+              <td>{{ object.celular_recado|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Estado Civil</td>
+              <td>{{ object.get_estado_civil_display|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Nome Cônjuge</td>
+              <td>{{ object.nome_conjuge|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Nacionalidade</td>
+              <td>{{ object.nacionalidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Endereço</td>
+              <td>{{ object.endereco|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Bairro</td>
+              <td>{{ object.bairro|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Cidade</td>
+              <td>{{ object.cidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>UF</td>
+              <td>{{ object.get_uf_display|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Convênio Médico</td>
+              <td>{{ object.dependente_convenio_medico|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Contato Fone Convênio</td>
+              <td>{{ object.dependente_contato_fone_convenio|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Contato Endereço Convênio</td>
+              <td>{{ object.dependente_contato_endereco_convenio|default:"---" }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a class ="btn btn-success" href="{% url 'dependente_list' %}" >Voltar</a>
+  </div>
+{% endblock content %}

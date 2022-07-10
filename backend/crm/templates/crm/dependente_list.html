@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %} Dependentes {% endblock %}
+
+{% block content %}
+  <div class = "card">
+    <div class="card-body">
+      <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+      <h5>
+        Lista Dependentes
+        <a class ="btn btn-success" href="{% url 'dependente_add' %}" >Adicionar</a>
+      </h5>
+      <table class = "table table-striped">
+        <thead>
+
+          <tr>
+            <th>Nome</th>
+            <th>Data nascimento</th>
+            <th>Cidade</th>
+            <th>Telefone</th>
+            <th>Ativo</th>
+            <th>Nome do Convênio</th>
+            <th>Contato do Convênio</th>
+            <th>Acões</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%  for object in object_list %}
+
+            <tr>
+              <td>
+                <a href="{{ object.get_absolute_url }}">{{ object }}</a></td>
+              <td>{{ object.data_nascimento|date:"d/m/Y"|default:"---" }}</td>
+              <td>{{ object.cidade|default:"---" }} </td>
+              <td>{{ object.celular_whatsapp|default:"---" }} </td>
+              <td>{{ object.active|yesno:"Sim,Não" }} </td>
+              <td>{{ object.dependente_convenio_medico }} </td>
+              <td>{{ object.dependente_contato_fone_convenio }} </td>
+              <td>
+                <a class ="btn btn-warning btn-sm" href="{% url 'dependente_edit' object.id %}">Editar</a>
+                <span
+                  id="linkDeletar"
+                  class ="btn btn-danger btn-sm"
+                  hx-delete="{% url 'dependente_delete' object.pk %}"
+                  hx-confirm="Deseja mesmo deletar?"
+                  hx-target="closest tr"
+                  hx-swap="outerHTML swap:500ms"
+                >
+                  Excluir
+                </span>
+              </td>
+            </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    htmx.on("htmx:afterSwap", function(evt) {
+      if (evt.target.id == 'linkDeletar'
+      ) {
+        location.reload();
+      }
+    });
+  </script>
+{% endblock js %}

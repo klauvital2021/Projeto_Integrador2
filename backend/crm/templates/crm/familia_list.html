@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %} Familia cadastrada {% endblock %}
+{% block content %}
+  <div class = "card">
+
+    <div class="card-body">
+      <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+        <h5> Lista Famílias
+          {% if not minha_familia %}
+            <a
+              class ="btn btn-success"
+              href="{% url 'familia_add' %}"
+            >Adicionar</a>
+          {% endif %}
+        </h5>
+
+
+
+      <table class = "table table-striped">
+
+        <thead>
+
+          <tr>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>UF</th>
+            <th>Ativo</th>
+            <th>Acões</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%  for object in object_list %}
+            {% csrf_token %}
+            <tr>
+              <td>
+                <a href="{{ object.get_absolute_url }}">{{ object.nome }}</a>
+              </td>
+              <td>{{ object.endereco }}</td>
+              <td>{{ object.bairro }}</td>
+              <td>{{ object.cidade }} </td>
+              <td>{{ object.get_uf_display }} </td>
+              <td>{{ object.active|yesno:"Sim,Não" }}</td>
+
+              <td>
+                <a class ="btn btn-warning btn-sm" href="{% url 'familia_edit' object.id %}">Editar</a>
+                <span
+                  id="linkDeletar"
+                  class ="btn btn-danger btn-sm"
+                  hx-delete="{% url 'familia_delete' object.pk %}"
+                  hx-confirm="Deseja mesmo deletar?"
+                  hx-target="closest tr"
+                  hx-swap="outerHTML swap:500ms"
+                >
+                  Excluir
+                </span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    htmx.on("htmx:afterSwap", function(evt) {
+      if (evt.target.id == 'linkDeletar'
+      ) {
+        location.reload();
+      }
+    });
+  </script>
+{% endblock js %}

@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+
+}
+
+#row {
+	margin-left: 0 ;
+}
+
+#row-menu {
+	padding-left: 0;
+}
+
+:root {
+    --cor-fundo: rgb(152, 154, 154);
+    --cor-hover: rgb(5, 5, 243);
+    --cor-primaria: rgb(45, 47, 46);
+    --cor-fonte:#ffffff
+}
+
+.dp-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 35%;
+    margin-right: 35%;
+
+}
+
+.dp-menu ul {
+      position: center;
+}
+
+.dp-menu ul li {
+    display: inline;
+    position: relative;
+}
+
+.dp-menu ul li a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px;
+    transition: background .3s;
+
+}
+
+.dp-menu ul li a:hover {
+    background-color: var(--cor-hover);
+    color: #FFFFFF;
+    position: relative;
+}
+
+/*sub menu*/
+.dp-menu ul ul {
+    display: none;
+    left: 0;
+    position: relative;
+    top:-15px;
+}
+
+.dp-menu ul li:hover ul {
+    display: block;
+}
+
+.dp-menu ul ul {
+    width: 150px
+}
+
+.dp-menu ul ul li a {
+    display: block;
+}
+
+
+#menu-h{
+    margin-top: 0;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 2%;
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+}
+
+.menu-h ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-h ul li {
+    float: left;
+    width: 150px;
+    height: 30px;
+    display: inline;
+    text-align: center;
+    line-height: 30px;
+    font-size:15px;
+}
+
+.menu-h ul li a {
+    background-color: rgb(212, 212, 215);
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    transition: background .4s;
+}
+
+.menu-h ul li a:hover {
+    background-color: rgb(24, 139, 233);
+    color: #FFFFFF;
+    display: block;
+}
+.menu-h ul ul {
+    display: none;
+    position: absolute;
+}
+
+.menu-h li ul li{
+    display:inline-list-item;
+    width:150px;
+    position:absolute;
+    top:0px;
+
+
+
+
+}
+
+#menu-h li:hover ul, .menu li.over ul{display:block;}
+
+
+
+
+
+#img-home {
+    display: block;
+    margin: 0 auto;
+    align-items: center;
+}
+#familia{
+    color: #2630FA;
+}
+
+#sair{
+    color: #FFFFFF;
+
+}
+.breadcrumb {
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 2px;
+  position:relative;
+  line-height:20px;                /* altura final da linha */
+   /*text-align:center; */
+  padding-right:10px;         /* 1/2 da altura da linha a mais */
+  padding-left:15px;          /* que o right para compensar o bico */
+  color:#000;
+
+}
+.breadcrumb:after {
+  content:"";display:block;position:absolute;
+  box-sizing: content-box;           /* para respeitar medida interna */
+  top:0;bottom:0;left:100%;
+  border:solid 10px transparent;   /* metade da altura da linha */
+  z-index:1;
+}
+.blue {background:blue}  .blue:after {border-left-color:blue}
+.gold {background:gold}  .gold:after {border-left-color:gold}
+.green{background:green} .green:after{border-left-color:green}
+.red  {background:red}   .red:after  {border-left-color:red}
+
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+      <hr>
+      <button class ="btn btn-warning" onclick="window.location.href='.'">Voltar</button>
+      <hr>
+      <h5><b>Medicamento</b></h5>
+      <hr>
+
+      <form action="." method="POST">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+
+        <button class ="btn btn-success" type="submit">Salvar</button>
+
+      </form>
+    </div>
+
+  </div>
+
+{% endblock %}

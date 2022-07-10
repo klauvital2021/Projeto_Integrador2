@@ -1,0 +1,185 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "django_migrations" (
+	"id"	integer NOT NULL,
+	"app"	varchar(255) NOT NULL,
+	"name"	varchar(255) NOT NULL,
+	"applied"	datetime NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "auth_group_permissions" (
+	"id"	integer NOT NULL,
+	"group_id"	integer NOT NULL,
+	"permission_id"	integer NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "auth_user_groups" (
+	"id"	integer NOT NULL,
+	"user_id"	integer NOT NULL,
+	"group_id"	integer NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("user_id") REFERENCES "auth_user"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("group_id") REFERENCES "auth_group"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "auth_user_user_permissions" (
+	"id"	integer NOT NULL,
+	"user_id"	integer NOT NULL,
+	"permission_id"	integer NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("permission_id") REFERENCES "auth_permission"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("user_id") REFERENCES "auth_user"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "django_admin_log" (
+	"id"	integer NOT NULL,
+	"action_time"	datetime NOT NULL,
+	"object_id"	text,
+	"object_repr"	varchar(200) NOT NULL,
+	"change_message"	text NOT NULL,
+	"content_type_id"	integer,
+	"user_id"	integer NOT NULL,
+	"action_flag"	smallint unsigned NOT NULL CHECK("action_flag" >= 0),
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("user_id") REFERENCES "auth_user"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("content_type_id") REFERENCES "django_content_type"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "django_content_type" (
+	"id"	integer NOT NULL,
+	"app_label"	varchar(100) NOT NULL,
+	"model"	varchar(100) NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "auth_permission" (
+	"id"	integer NOT NULL,
+	"content_type_id"	integer NOT NULL,
+	"codename"	varchar(100) NOT NULL,
+	"name"	varchar(255) NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("content_type_id") REFERENCES "django_content_type"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "auth_group" (
+	"id"	integer NOT NULL,
+	"name"	varchar(150) NOT NULL UNIQUE,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "auth_user" (
+	"id"	integer NOT NULL,
+	"password"	varchar(128) NOT NULL,
+	"last_login"	datetime,
+	"is_superuser"	bool NOT NULL,
+	"username"	varchar(150) NOT NULL UNIQUE,
+	"last_name"	varchar(150) NOT NULL,
+	"email"	varchar(254) NOT NULL,
+	"is_staff"	bool NOT NULL,
+	"is_active"	bool NOT NULL,
+	"date_joined"	datetime NOT NULL,
+	"first_name"	varchar(150) NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "crm_familia" (
+	"id"	integer NOT NULL,
+	"endereco"	varchar(200),
+	"bairro"	varchar(200),
+	"cidade"	varchar(200),
+	"uf"	varchar(2) NOT NULL,
+	"active"	bool NOT NULL,
+	"nome"	varchar(200) NOT NULL UNIQUE,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "crm_cuidador" (
+	"usuario_ptr_id"	bigint NOT NULL,
+	"data_inicio"	date,
+	"data_fim"	date,
+	"regime_contratacao"	varchar(10),
+	"carga_horaria_semanal"	integer NOT NULL,
+	"turno_trabalho"	varchar(1),
+	"quem_indicou"	varchar(100),
+	"salario_atual"	decimal NOT NULL,
+	"adicional"	decimal NOT NULL,
+	"dia_pagamento"	integer,
+	"observacao"	text,
+	PRIMARY KEY("usuario_ptr_id"),
+	FOREIGN KEY("usuario_ptr_id") REFERENCES "crm_usuario"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "consulta_consulta" (
+	"id"	integer NOT NULL,
+	"data_consulta"	date NOT NULL,
+	"hora"	time NOT NULL,
+	"especialidade"	varchar(30) NOT NULL,
+	"local"	varchar(100),
+	"nome_especialista"	varchar(100) NOT NULL,
+	"fone_contato"	varchar(100),
+	"atendimento"	varchar(30) NOT NULL,
+	"motivo_consulta"	varchar(300),
+	"sintomas"	varchar(300),
+	"observacao"	varchar(300),
+	"cancelamento"	date,
+	"motivo_cancelamento"	varchar(30),
+	"acompanhante_responsavel_id"	bigint NOT NULL,
+	"dependente_id"	bigint NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("dependente_id") REFERENCES "crm_usuario"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("acompanhante_responsavel_id") REFERENCES "crm_usuario"("id") DEFERRABLE INITIALLY DEFERRED
+);
+CREATE TABLE IF NOT EXISTS "crm_usuario" (
+	"id"	integer NOT NULL,
+	"endereco"	varchar(200),
+	"bairro"	varchar(200),
+	"cidade"	varchar(200),
+	"uf"	varchar(2) NOT NULL,
+	"active"	bool NOT NULL,
+	"data_nascimento"	date,
+	"rg"	varchar(20),
+	"celular_whatsapp"	varchar(20) UNIQUE,
+	"celular_recado"	varchar(20),
+	"estado_civil"	varchar(1),
+	"nome_conjuge"	varchar(100),
+	"nacionalidade"	varchar(100),
+	"parentesco_do_responsavel"	varchar(1),
+	"dependente_convenio_medico"	varchar(100),
+	"dependente_contato_fone_convenio"	varchar(20),
+	"dependente_contato_endereco_convenio"	varchar(100),
+	"familia_id"	bigint,
+	"user_id"	integer NOT NULL,
+	"cpf"	varchar(14),
+	FOREIGN KEY("user_id") REFERENCES "auth_user"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("familia_id") REFERENCES "crm_familia"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "django_session" (
+	"session_key"	varchar(40) NOT NULL,
+	"session_data"	text NOT NULL,
+	"expire_date"	datetime NOT NULL,
+	PRIMARY KEY("session_key")
+);
+CREATE TABLE IF NOT EXISTS "consulta_medicamento" (
+	"id"	integer NOT NULL,
+	"medicamento_prescrito"	varchar(100) NOT NULL,
+	"principio_ativo"	varchar(40) NOT NULL,
+	"indicacoes"	text,
+	"tipo_medicamento"	varchar(18) NOT NULL,
+	"dosagem"	varchar(40) NOT NULL,
+	"posologia"	varchar(30) NOT NULL,
+	"uso_continuo"	varchar(30) NOT NULL,
+	"data_inicio"	date,
+	"data_fim"	date,
+	"forma_uso"	text NOT NULL,
+	"orientacao_tratamento"	text NOT NULL,
+	"medico_responsavel"	varchar(100),
+	"fornecedor_principal"	varchar(20) NOT NULL,
+	"dependente_id"	bigint NOT NULL,
+	FOREIGN KEY("dependente_id") REFERENCES "crm_usuario"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "consulta_posconsulta" (
+	"id"	integer NOT NULL,
+	"diagnostico"	text NOT NULL,
+	"tratamento"	text,
+	"receita"	varchar(100),
+	"observacao"	text,
+	"acompanhante_responsavel_id"	bigint NOT NULL,
+	"consulta_id"	bigint NOT NULL,
+	FOREIGN KEY("acompanhante_responsavel_id") REFERENCES "crm_usuario"("id") DEFERRABLE INITIALLY DEFERRED,
+	FOREIGN KEY("consulta_id") REFERENCES "consulta_consulta"("id") DEFERRABLE INITIALLY DEFERRED,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);

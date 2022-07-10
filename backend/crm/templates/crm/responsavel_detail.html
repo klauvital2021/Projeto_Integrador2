@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% block content %}
+  <div class="container">
+    <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
+    <h4>Detalhes do Responsável </h4>
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Nome</td>
+              <td>{{ object.user.get_full_name }}</td>
+            </tr>
+
+            <tr>
+              <td>Família</td>
+              <td>{{ object.familia|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Data de Nascimento</td>
+              <td>{{ object.data_nascimento|date:"d/m/Y"|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>RG</td>
+              <td>{{ object.rg|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>CPF</td>
+              <td>{{ object.cpf|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>WhatsApp</td>
+              <td>{{ object.celular_whatsapp|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Celular Recado</td>
+              <td>{{ object.celular_recado|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Estado Civil</td>
+              <td>{{ object.estado_civil|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Nome Cônjuge</td>
+              <td>{{ object.nome_conjuge|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Nacionalidade</td>
+              <td>{{ object.nacionalidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Parentesco</td>
+              <td>{{ object.parentesco_do_responsavel|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Endereço</td>
+              <td>{{ object.endereco|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Bairro</td>
+              <td>{{ object.bairro|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>Cidade</td>
+              <td>{{ object.cidade|default:"---" }}</td>
+            </tr>
+
+            <tr>
+              <td>UF</td>
+              <td>{{ object.get_uf_display|default:"---" }}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a class ="btn btn-success" href="{% url 'responsavel_list' %}" >Voltar</a>
+  </div>
+{% endblock content %}
