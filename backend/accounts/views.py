@@ -52,6 +52,7 @@ def custom_login(request):
                 if responsavel.parentesco_do_responsavel:
                     return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
                 else:
+                    messages.add_message(request, constants.WARNING, 'Complete seu cadastrado!')
                     return redirect(resolve_url('responsavel_edit', pk=responsavel.pk))
             else:
                 return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
