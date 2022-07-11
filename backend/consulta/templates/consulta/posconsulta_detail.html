@@ -5,11 +5,44 @@
   <div class="container">
     <div class="card">
       <div class="card-body">
-        {% if object.receita %}
-          <img src="{{ object.receita.url }}" alt="{{ object.receita.url }}">
-        {% endif %}
+        <table class="table-responsive">
+
+          <tbody>
+            <tr>
+              <td>Consulta</td>
+              <td>{{object.consulta|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Especialista</td>
+              <td>{{object.consulta.get_especialidade_display|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Médico</td>
+              <td>{{object.consulta.nome_especialista|default:"---" }}</td>
+            </tr>
+             <tr>
+              <td>Diagnóstico</td>
+              <td>{{object.diagnostico|default:"---"}}</td>
+            </tr>
+            <tr>
+              <td>Tratamento</td>
+              <td>{{object.tratamento|default:"---" }}</td>
+            </tr>
+            <tr>
+              <td>Receita {% if object.receita %}</td>
+              <td><img src="{{ object.receita.url }}" with="200px" alt="{{ object.receita.url }}">
+                {% endif %}</td>
+            </tr>
+            <tr>
+              <td>Observações</td>
+              <td>{{object.observações|default:"---" }}</td>
+            </tr>
+          </tbody>
+
+        </table>
       </div>
     </div>
+    <a class ="btn btn-success" href="{% url 'posconsulta_list' %}" >Voltar</a>
   </div>
 
 {% endblock content %}

@@ -8,6 +8,7 @@ from backend.core.constants import (
     REGIME_CHOICES,
     TURNO_CHOICES
 )
+
 from backend.core.models import Active, Address
 
 from .managers import DependenteManager, ResponsavelManager
@@ -40,6 +41,7 @@ class Usuario(Address, Active):
     dependente_convenio_medico = models.CharField('Convênio', max_length=100, blank=True, null=True)  # noqa E501
     dependente_contato_fone_convenio = models.CharField('Telefone Convênio', max_length=20, blank=True, null=True)  # noqa E501
     dependente_contato_endereco_convenio = models.CharField('Endereço Convênio', max_length=100, blank=True, null=True)  # noqa E501
+    #ativo = models.CharField('Ativo', max_length=10, choices=ATIVO_CHOICES, blank=True, null=True)
 
     class Meta:
         ordering = ('user__first_name', 'user__last_name')

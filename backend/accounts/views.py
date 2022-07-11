@@ -18,6 +18,7 @@ def responsavel_principal_add(request):
     form = ResponsavelPrincipalForm(request.POST or None)
     success_url = reverse_lazy('home')
 
+
     if request.method == 'POST':
         if form.is_valid():
             user = form.save(commit=False)
@@ -32,6 +33,7 @@ def responsavel_principal_add(request):
 
 def custom_login(request):
     template_name = 'accounts/login.html'
+    #messages.add_message(request, constants.INFO, 'Faça seu login ou cadastre-se no sistema')
     form = AuthenticationForm(request.POST or None)
     context = {'form': form}
 
@@ -58,7 +60,7 @@ def custom_login(request):
                 return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
 
         # Caso não esteja autenticado.
-        messages.add_message(request, constants.ERROR, 'Senha errada!')
+        messages.add_message(request, constants.ERROR, 'Usuário ou senha não conferem !')
         return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
 
     return render(request, template_name, context)

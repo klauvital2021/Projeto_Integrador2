@@ -12,11 +12,9 @@
       <hr>
       <form action="." method="POST">
         {% csrf_token %}
-
         <div class="col-sm-6">
           {{  form|bootstrap }}
         </div>
-
         <button class ="btn btn-success" type="submit">Salvar</button>
 
       </form>

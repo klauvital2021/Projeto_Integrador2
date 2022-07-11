@@ -133,5 +133,6 @@ MESSAGE_TAGS={
     constants.ERROR:'alert-danger',
     constants.DEBUG:'alert-primary',
     constants.WARNING: 'alert-warning',
-    constants.INFO: 'alert-info',
+    constants.INFO: 'alert-secondary',
+
 }

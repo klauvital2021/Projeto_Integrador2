@@ -5,19 +5,23 @@
 {% block titulo %} Home {% endblock %}
 
 {% block content %}
-<div class ="card">
+<div class ="card-body">
 
-    <div class="container">
-
-        <h4>Olá <b>{{ user.get_full_name }}</b></h4>
+    <h4>Olá <b>{{ user.get_full_name }}</b></h4>
 
               <h5><b>{{ familia }}</b> Seja bem-vindo!</h5>
+        <table>
+            <tr>
+               <td><img id="img-capa" src="{% static 'media/capa.jpg' %}" width = "800" ></td>
+
+
+                <td><img id="img-home" src="{% static 'media/populacao_total.jpg' %}" width = "500" ></td>
+            </tr>
+
+        </table>
 
 
 
-        <img id="img-home" src="{% static 'media/populacao_total.jpg' %}" width = "500" >
-
-    </div>
 </div>
 
 {% endblock %}

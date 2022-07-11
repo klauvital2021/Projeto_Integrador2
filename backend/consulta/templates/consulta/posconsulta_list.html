@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          {%  for object in object_list %}
+             {%  for object in object_list %}
 
             <td>
               <a href="{{ object.get_absolute_url }}">{{ object }}</a>
@@ -40,12 +40,12 @@
             <td>{{ object.acompanhante_responsavel }}</td>
             <td>{{ object.diagnostico }} </td>
             <td>{{ object.tratamento}} </td>
-            <td><a href="{{ object.get_absolute_url }}">{{ object.receita}}</a> </td>
+            <td><a href="{{ object.get_absolute_url }}">{{ object.receita }}</a> </td>
 
 
             <td>
               <a class ="btn btn-warning btn-sm" href="{% url 'posconsulta_edit' object.pk %}">Editar</a>
-              <a class ="btn btn-danger btn-sm" href="" onclick="return confirm ('Tem certeza que deseja excluir o imovel de id: {{ object.id }} ?  ')">Excluir</a><td>
+              <a class ="btn btn-danger btn-sm" href="" onclick="return confirm ('Tem certeza que deseja excluir o pós consulta de id: {{ object.id }} ?  ')">Excluir</a><td>
                 <a class ="btn btn-success btn-sm" href="{% url 'medicamento_add' %}">Medicamento</a>
               </td>
             </tr>

@@ -15,8 +15,8 @@
           <tr>
             <th>Data </th>
             <th>Hora</th>
-            <th>Especialidade</th>
             <th>Dependente</th>
+            <th>Especialidade</th>
             <th>Médico(a)</th>
             <th>Atendimento</th>
             <th>Acompanhante</th>
@@ -29,11 +29,10 @@
           {%  for object in object_list %}
 
             <tr>
-              <td><a href="{{ object.get_absolute_url }}">{{ object.data_consulta|date:"d/m/Y" }}</a></td>
-
+              <td><a href="{{ object.get_absolute_url }}">{{ object.data_consulta|date:"d/m/Y" }}</td>
               <td>{{ object.hora }}</td>
+              <td>{{ object.dependente }}</a></td>
               <td>{{ object.get_especialidade_display|default:"---" }} </td>
-              <td>{{objetc.consulta.dependente.nome }}</td>
               <td>{{ object.nome_especialista|default:"---" }} </td>
               <td>{{ object.get_atendimento_display|default:"---" }} </td>
              <td>{{ object.acompanhante_responsavel|default:"---" }} </td>

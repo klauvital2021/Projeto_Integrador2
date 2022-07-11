@@ -14,9 +14,10 @@
         <thead>
 
           <tr>
-
             <th>Medicamento </th>
+
             <th>Principio ativo</th>
+            <th>Dependente</th>
             <th>Indicações</th>
             <th>Dosagem</th>
             <th>Uso</th>
@@ -34,6 +35,7 @@
 
               <td> <a href="{{ object.get_absolute_url }}">{{ object.medicamento_prescrito }}</a> </td>
               <td>{{ object.principio_ativo }}</td>
+              <td>{{ object.dependente }}</td>
               <td>{{ object.indicacoes }} </td>
               <td>{{ object.dosagem}} </td>
               <td>{{ object.forma_uso }} </td>
@@ -43,7 +45,7 @@
               <td>{{ object.get_fornecedor_principal_display }} </td>
               <td>
                 <a class ="btn btn-warning btn-sm" href="">Editar</a>
-                <a class ="btn btn-danger btn-sm" href="" onclick="return confirm ('Tem certeza que deseja excluir o imovel de id: {{ object.id }} ?  ')">Excluir</a>
+                <a class ="btn btn-danger btn-sm" href="" onclick="return confirm ('Tem certeza que deseja excluir o medicamento de id: {{ object.id }} ?  ')">Excluir</a>
               </td>
             </tr>
           {% endfor %}

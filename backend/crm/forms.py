@@ -17,7 +17,7 @@ class CustomUserForm(forms.ModelForm):
     )
 
     class Meta:
-        fields = ('first_name', 'last_name', 'email')
+      fields = ('first_name', 'last_name', 'email')
 
 
 class FamiliaForm(forms.ModelForm):
@@ -55,16 +55,15 @@ class ResponsavelAddForm(CustomUserForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.fields['data_nascimento'].widget.attrs.update({'class': 'mask-date'})  # noqa E501
         self.fields['cpf'].widget.attrs.update({'class': 'mask-cpf'})
 
 
-class ResponsavelUpdateForm(forms.ModelForm):
+class ResponsavelUpdateForm(CustomUserForm):
 
     class Meta:
         model = Responsavel
-        fields = (
+        fields = CustomUserForm.Meta.fields + (
             'data_nascimento',
             'rg',
             'cpf',
