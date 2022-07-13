@@ -5,15 +5,15 @@
 
 {% block content %}
   <div class="card">
-  <div class="alert alert-success" role="alert"> Faca seu cadastro para acessar o sistema !</div>
-  <div class="container">
-    <h2>Cadastro</h2>
+    <div class="alert alert-success" role="alert"> Faca seu cadastro para acessar o sistema !</div>
+    <div class="container">
+      <h2>Cadastro</h2>
 
-    <form method="post">
-      {% csrf_token %}
-      {{ form|bootstrap }}
-      <button class="btn btn-success" type="submit">Cadastrar</button>
-    </form>
+      <form method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button class="btn btn-success" type="submit">Cadastrar</button>
+      </form>
+    </div>
   </div>
-</div>
 {% endblock %}

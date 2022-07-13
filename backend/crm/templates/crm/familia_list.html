@@ -6,14 +6,14 @@
 
     <div class="card-body">
       <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
-        <h5> Lista Famílias
-          {% if not minha_familia %}
-            <a
-              class ="btn btn-success"
-              href="{% url 'familia_add' %}"
-            >Adicionar</a>
-          {% endif %}
-        </h5>
+      <h5> Lista Famílias
+        {% if not minha_familia %}
+          <a
+            class ="btn btn-success"
+            href="{% url 'familia_add' %}"
+          >Adicionar</a>
+        {% endif %}
+      </h5>
 
 
 

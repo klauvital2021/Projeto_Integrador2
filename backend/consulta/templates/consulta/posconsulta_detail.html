@@ -20,7 +20,7 @@
               <td>Médico</td>
               <td>{{object.consulta.nome_especialista|default:"---" }}</td>
             </tr>
-             <tr>
+            <tr>
               <td>Diagnóstico</td>
               <td>{{object.diagnostico|default:"---"}}</td>
             </tr>
@@ -30,8 +30,8 @@
             </tr>
             <tr>
               <td>Receita {% if object.receita %}</td>
-              <td><img src="{{ object.receita.url }}" with="200px" alt="{{ object.receita.url }}">
-                {% endif %}</td>
+                <td><img src="{{ object.receita.url }}" with="200px" alt="{{ object.receita.url }}">
+              {% endif %}</td>
             </tr>
             <tr>
               <td>Observações</td>
