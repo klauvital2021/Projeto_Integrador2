@@ -17,10 +17,20 @@ class ConsultaCreateView(LRM, CreateView):
     model = Consulta
     form_class = ConsultaForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 
 class ConsultaUpdateView(LRM, UpdateView):
     model = Consulta
     form_class = ConsultaForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 def consulta_delete(request):
