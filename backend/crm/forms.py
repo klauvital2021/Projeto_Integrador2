@@ -17,7 +17,7 @@ class CustomUserForm(forms.ModelForm):
     )
 
     class Meta:
-      fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email')
 
 
 class FamiliaForm(forms.ModelForm):

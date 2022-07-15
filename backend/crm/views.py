@@ -1,10 +1,11 @@
+from urllib import request
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin as LRM
+from django.contrib.messages import constants
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from django.contrib import messages
-from django.contrib.messages import constants
-from urllib import request
 
 from .forms import (
     CuidadorAddForm,
@@ -132,7 +133,6 @@ class FamiliaCreateView(LRM, CreateView):
         if familia:
             return redirect('familia_list')
 
-
         self.object = form.save()
 
         # Associa o Responsavel a Família.
@@ -201,7 +201,6 @@ class ResponsavelCreateView(LRM, CreateView):
 class ResponsavelUpdateView(LRM, UpdateView):
     model = Responsavel
     form_class = ResponsavelUpdateForm
-
 
 
 @login_required

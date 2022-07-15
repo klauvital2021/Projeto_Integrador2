@@ -1,4 +1,4 @@
-# SGWC
+# Projeto_Integrador2
 
 UNIVESP - Projeto Integrador II - Sistema de Gerenciamento de Cuidadores.
 
@@ -17,8 +17,8 @@ UNIVESP - Projeto Integrador II - Sistema de Gerenciamento de Cuidadores.
 * Rode as migrações.
 
 ```
-git clone https://github.com/klauvital2021/SGWC.git
-cd SGWC
+git clone https://github.com/klauvital2021/Projeto_Integrador2.git
+cd Projeto_Integrador2
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -28,12 +28,6 @@ python manage.py createsuperuser --username="admin" --email=""
 python manage.py cria_grupos
 ```
 
-
-## Diagramas ER
-
-```
-python manage.py graph_models -a -g -o img/models.png  # all
-```
 
 ## Links
 

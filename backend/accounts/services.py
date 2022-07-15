@@ -1,6 +1,8 @@
 from django.contrib.auth.models import Group
+
 from backend.core.services import add_permissions
 from backend.crm.models import Responsavel
+
 
 def responsavel_principal_create(form, user):
     # Define username igual email.

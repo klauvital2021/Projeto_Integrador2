@@ -38,17 +38,17 @@
       </nav>
       <nav>
         {% if messages %}
-           {% for i in messages %}
-               <div class="alert {{i.tags}}" role="alert">
-                    {{i}}
-               </div>
-           {% endfor %}
-         {% endif %}
+          {% for i in messages %}
+            <div class="alert {{i.tags}}" role="alert">
+              {{i}}
+            </div>
+          {% endfor %}
+        {% endif %}
       </nav>
       <div id="row-menu">
         {% if user.is_authenticated %}
 
-           <nav class="dp-menu">
+          <nav class="dp-menu">
             <ul class="nav nav-tabs">
               <li class="nav-item"><a class="breadcrumb blue" href="{% url 'familia_list' %}">Família</a></li>
               <li class="nav-item"><a class="breadcrumb blue"  href="{% url 'dependente_list' %}">Dependentes</a>
