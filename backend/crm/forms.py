@@ -19,6 +19,13 @@ class CustomUserForm(forms.ModelForm):
     class Meta:
         fields = ('first_name', 'last_name', 'email')
 
+    def __init__(self, user=None, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].initial = user.first_name
+        self.fields['last_name'].initial = user.last_name
+        self.fields['email'].initial = user.email
+
 
 class FamiliaForm(forms.ModelForm):
 
@@ -84,6 +91,25 @@ class ResponsavelUpdateForm(CustomUserForm):
 
         self.fields['data_nascimento'].widget.attrs.update({'class': 'mask-date'})  # noqa E501
         self.fields['cpf'].widget.attrs.update({'class': 'mask-cpf'})
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        user = instance.user
+
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['last_name']
+        email = self.cleaned_data['email']
+
+        if commit:
+            user.username = email
+            user.email = email
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+
+            instance.save()
+        return instance
 
 
 class CuidadorAddForm(CustomUserForm):

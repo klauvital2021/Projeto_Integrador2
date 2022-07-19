@@ -203,6 +203,11 @@ class ResponsavelUpdateView(LRM, UpdateView):
     model = Responsavel
     form_class = ResponsavelUpdateForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 
 @login_required
 def responsavel_delete(request, pk):
