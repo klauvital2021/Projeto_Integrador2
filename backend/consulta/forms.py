@@ -44,14 +44,14 @@ class PosConsultaForm(forms.ModelForm):
         consulta = Consulta.objects.filter(pk=consulta_pk)
         self.fields['consulta'].queryset = consulta
 
+        acompanhante_responsavel = consulta.first().acompanhante_responsavel
+        queryset = Responsavel.objects.filter(pk=acompanhante_responsavel.pk)  # noqa E501
+        self.fields['acompanhante_responsavel'].queryset = queryset
+
         if len(consulta) == 1:
             # Remove os tracinhos.
             self.fields['consulta'].empty_label = None
-
-        usuario = Usuario.objects.filter(user=user).first()
-        familia = usuario.familia
-        queryset = Responsavel.objects.filter(familia=familia)
-        self.fields['acompanhante_responsavel'].queryset = queryset
+            self.fields['acompanhante_responsavel'].empty_label = None
 
 
 class MedicamentoForm(forms.ModelForm):
