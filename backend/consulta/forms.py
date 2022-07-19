@@ -31,8 +31,22 @@ class PosConsultaForm(forms.ModelForm):
         model = PosConsulta
         fields = '__all__'
 
-    def __init__(self, user=None, *args, **kwargs):
+    def __init__(self, request, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # pega o penúltimo item da lista
+        # sendo que a lista é ex:
+        # '/consulta/posconsulta/add/3/'
+        # request.path.split('/')
+        # ['', 'consulta', 'posconsulta', 'add', '3', '']
+        # ou seja, nesse caso retorna o número 3.
+        consulta_pk = request.path.split('/')[-2]
+        consulta = Consulta.objects.filter(pk=consulta_pk)
+        self.fields['consulta'].queryset = consulta
+
+        if len(consulta) == 1:
+            # Remove os tracinhos.
+            self.fields['consulta'].empty_label = None
 
         usuario = Usuario.objects.filter(user=user).first()
         familia = usuario.familia

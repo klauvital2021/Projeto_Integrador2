@@ -28,7 +28,6 @@
         </thead>
         <tbody>
           {%  for object in object_list %}
-
             <tr>
               <td><a href="{{ object.get_absolute_url }}">{{ object.data_consulta|date:"d/m/Y" }}</td>
               <td>{{ object.hora }}</td>
@@ -46,7 +45,7 @@
                 {% if object.pos_consultas.all %}
                   <a class="btn btn-primary btn-sm" href="{% url 'posconsulta_list' %}">Pós Consulta</a>
                 {% else %}
-                  <a class="btn btn-success btn-sm" href="{% url 'posconsulta_add' %}">Criar Pós Consulta</a>
+                  <a class="btn btn-success btn-sm" href="{% url 'posconsulta_add' object.pk %}">Criar Pós Consulta</a>
                 {% endif %}
               </td>
             </tr>

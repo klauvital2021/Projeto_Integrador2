@@ -13,7 +13,7 @@ consulta_urlpatterns = [
 posconsulta_urlpatterns = [
     path('', v.PosConsultaListView.as_view(), name='posconsulta_list'),  # noqa E501
     path('<int:pk>/', v.PosConsultaDetailView.as_view(), name='posconsulta_detail'),  # noqa E501
-    path('add/', v.PosConsultaCreateView.as_view(), name='posconsulta_add'),  # noqa E501
+    path('add/<int:consulta_pk>/', v.PosConsultaCreateView.as_view(), name='posconsulta_add'),  # noqa E501
     path('edit/<int:pk>/', v.PosConsultaUpdateView.as_view(), name='posconsulta_edit'),  # noqa E501
     path('delete/<int:pk>/', v.posconsulta_delete, name='posconsulta_delete'),  # noqa E501
 ]
