@@ -12,8 +12,9 @@
           <a class ="btn btn-success" href="{% url 'medicamento_add' %}">Adicionar</a>
       <table class = "table table-striped">
         <thead>
-            <th>Dependente </th>
-            <th>Medicamento </th>
+            <th>Dependente</th>
+            <th>Família</th>
+            <th>Medicamento</th>
             <th>Principio ativo</th>
             <th>Indicações</th>
             <th>Dosagem</th>
@@ -30,6 +31,7 @@
 
             <tr>
               <td>{{ object.dependente }}</td>
+              <td>{{ object.dependente.familia }}</td>
               <td> <a href="{{ object.get_absolute_url }}">{{ object.medicamento_prescrito }}</a> </td>
               <td>{{ object.principio_ativo }}</td>
               <td>{{ object.indicacoes }} </td>

@@ -78,10 +78,11 @@ def posconsulta_delete(request):
 class MedicamentoListView(LRM, ListView):
     model = Medicamento
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update({'user': self.request.user})
-        return kwargs
+    def get_queryset(self):
+        usuario = self.request.user.usuarios.first()
+        familia = usuario.familia
+        queryset = Medicamento.objects.filter(dependente__familia__nome=familia)  # noqa E501
+        return queryset
 
 
 class MedicamentoDetailView(LRM, DetailView):
@@ -91,6 +92,11 @@ class MedicamentoDetailView(LRM, DetailView):
 class MedicamentoCreateView(LRM, CreateView):
     model = Medicamento
     form_class = MedicamentoForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class MedicamentoUpdateView(LRM, UpdateView):
