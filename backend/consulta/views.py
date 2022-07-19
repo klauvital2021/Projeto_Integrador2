@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin as LRM
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import ConsultaForm, MedicamentoForm, PosConsultaForm
+from .forms import ConsultaForm, MedicamentoForm, PosConsultaForm, DependentesDaFamiliaForm
 from .models import Consulta, Medicamento, PosConsulta
 
 
@@ -9,10 +9,22 @@ class ConsultaListView(LRM, ListView):
     model = Consulta
 
     def get_queryset(self):
+        dependente = self.request.GET.get('dependente')
+
+        if dependente:
+            queryset = Consulta.objects.filter(dependente=dependente)  # noqa E501
+            return queryset
+
         usuario = self.request.user.usuarios.first()
         familia = usuario.familia
         queryset = Consulta.objects.filter(dependente__familia__nome=familia)  # noqa E501
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['form'] = DependentesDaFamiliaForm(user)
+        return context
 
 
 class ConsultaDetailView(LRM, DetailView):

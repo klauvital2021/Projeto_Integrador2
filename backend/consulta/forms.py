@@ -5,6 +5,23 @@ from backend.crm.models import Dependente, Responsavel, Usuario
 from .models import Consulta, Medicamento, PosConsulta
 
 
+class DependentesDaFamiliaForm(forms.Form):
+    dependente = forms.ModelChoiceField(
+        label='Dependente',
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+        ),
+        queryset=Dependente.objects.all()
+    )
+
+    def __init__(self, user=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        usuario = user.usuarios.first()
+        familia = usuario.familia
+        queryset = Dependente.objects.filter(familia__nome=familia)
+        self.fields['dependente'].queryset = queryset
+
+
 class ConsultaForm(forms.ModelForm):
 
     class Meta:

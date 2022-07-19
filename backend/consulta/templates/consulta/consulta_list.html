@@ -8,6 +8,12 @@
     <div class="card-body">
       <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
       <h5> Lista Consultas </h5>
+
+      <form id="formBuscar" action="." method="GET">
+        {{ form.dependente.label }}
+        {{ form.dependente }}
+      </form>
+
       <hr>
       <a class ="btn btn-success" href="{% url 'consulta_add'  %}">Adicionar</a>
       <table class = "table table-striped">
@@ -56,3 +62,12 @@
     </div>
   </div>
 {% endblock %}
+
+{% block js %}
+  <script>
+    $('#id_dependente').on('click', function(e){
+      e.preventDefault()
+      $('#formBuscar').submit()
+    })
+  </script>
+{% endblock js %}
