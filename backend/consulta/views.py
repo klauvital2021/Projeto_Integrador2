@@ -46,6 +46,12 @@ def consulta_delete(request):
 class PosConsultaListView(LRM, ListView):
     model = PosConsulta
 
+    def get_queryset(self):
+        usuario = self.request.user.usuarios.first()
+        familia = usuario.familia
+        queryset = PosConsulta.objects.filter(acompanhante_responsavel__familia__nome=familia)  # noqa E501
+        return queryset
+
 
 class PosConsultaDetailView(LRM, DetailView):
     model = PosConsulta

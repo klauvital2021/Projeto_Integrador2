@@ -19,6 +19,7 @@
             <th>Especialidade</th>
             <th>Médico</th>
             <th>Acompanhante</th>
+            <th>Família</th>
             <th>Diagnóstico</th>
             <th>Tratamento</th>
             <th>Receita</th>
@@ -29,7 +30,6 @@
         </thead>
         <tbody>
           {%  for object in object_list %}
-
             <td>
               <a href="{{ object.get_absolute_url }}">{{ object }}</a>
             </td>
@@ -38,10 +38,10 @@
             <td>{{object.consulta.get_especialidade_display}}</td>
             <td>{{object.consulta.nome_especialista}}</td>
             <td>{{ object.acompanhante_responsavel }}</td>
+            <td>{{ object.acompanhante_responsavel.familia }}</td>
             <td>{{ object.diagnostico }} </td>
             <td>{{ object.tratamento}} </td>
             <td><a href="{{ object.get_absolute_url }}">{{ object.receita }}</a> </td>
-
 
             <td>
               <a class ="btn btn-warning btn-sm" href="{% url 'posconsulta_edit' object.pk %}">Editar</a>
