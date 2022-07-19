@@ -5,9 +5,14 @@ from .forms import ConsultaForm, MedicamentoForm, PosConsultaForm
 from .models import Consulta, Medicamento, PosConsulta
 
 
-
 class ConsultaListView(LRM, ListView):
     model = Consulta
+
+    def get_queryset(self):
+        usuario = self.request.user.usuarios.first()
+        familia = usuario.familia
+        queryset = Consulta.objects.filter(dependente__familia__nome=familia)  # noqa E501
+        return queryset
 
 
 class ConsultaDetailView(LRM, DetailView):
@@ -72,7 +77,6 @@ def posconsulta_delete(request):
 
 class MedicamentoListView(LRM, ListView):
     model = Medicamento
-
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
