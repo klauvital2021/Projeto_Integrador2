@@ -22,9 +22,10 @@ class CustomUserForm(forms.ModelForm):
     def __init__(self, user=None, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].initial = user.first_name
-        self.fields['last_name'].initial = user.last_name
-        self.fields['email'].initial = user.email
+        if user:
+            self.fields['first_name'].initial = user.first_name
+            self.fields['last_name'].initial = user.last_name
+            self.fields['email'].initial = user.email
 
 
 class FamiliaForm(forms.ModelForm):
