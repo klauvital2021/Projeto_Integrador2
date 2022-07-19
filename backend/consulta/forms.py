@@ -53,6 +53,5 @@ class MedicamentoForm(forms.ModelForm):
         familia = usuario.familia
         queryset = Dependente.objects.filter(familia=familia)
         self.fields['dependente'].queryset = queryset
-
         self.fields['data_inicio'].widget.attrs.update({'class': 'mask-date'})
         self.fields['data_fim'].widget.attrs.update({'class': 'mask-date'})

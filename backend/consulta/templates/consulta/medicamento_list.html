@@ -9,15 +9,12 @@
       <h4> <B><label>{{ user.get_full_name }} -  Familia {{ familia}}</label></B></h4>
       <h5> Lista Medicamentos </h5>
       <hr>
-      <a class ="btn btn-success" href="{% url 'medicamento_add' %}">Adicionar</a>
+          <a class ="btn btn-success" href="{% url 'medicamento_add' %}">Adicionar</a>
       <table class = "table table-striped">
         <thead>
-
-          <tr>
+            <th>Dependente </th>
             <th>Medicamento </th>
-
             <th>Principio ativo</th>
-            <th>Dependente</th>
             <th>Indicações</th>
             <th>Dosagem</th>
             <th>Uso</th>
@@ -29,13 +26,12 @@
           </tr>
         </thead>
         <tbody>
-          {%  for object in object_list %}
+            {%  for object in object_list %}
 
             <tr>
-
+              <td>{{ object.dependente }}</td>
               <td> <a href="{{ object.get_absolute_url }}">{{ object.medicamento_prescrito }}</a> </td>
               <td>{{ object.principio_ativo }}</td>
-              <td>{{ object.dependente }}</td>
               <td>{{ object.indicacoes }} </td>
               <td>{{ object.dosagem}} </td>
               <td>{{ object.forma_uso }} </td>
@@ -48,6 +44,7 @@
                 <a class ="btn btn-danger btn-sm" href="" onclick="return confirm ('Tem certeza que deseja excluir o medicamento de id: {{ object.id }} ?  ')">Excluir</a>
               </td>
             </tr>
+
           {% endfor %}
         </tbody>
       </table>

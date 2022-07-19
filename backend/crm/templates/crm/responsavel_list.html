@@ -28,7 +28,7 @@
         </thead>
         <tbody>
           {%  for object in object_list %}
-            {% csrf_token %}
+
             <tr>
               <td>
                 <a href="{{ object.get_absolute_url }}">{{ object.user.get_full_name }}</a>

@@ -7,10 +7,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.messages import constants
 from django.shortcuts import redirect, render, resolve_url
 from django.urls import reverse_lazy
-
 from backend.core.services import has_group
 from backend.crm.models import Responsavel
-
 from .forms import ResponsavelPrincipalForm
 from .services import responsavel_principal_create
 
@@ -50,15 +48,20 @@ def custom_login(request):
             auth_login(request, user_auth)
             # return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
             user = user_auth
+
             # Redireciona o Responsável Principal para completar o cadastro dele.
             if has_group(user, 'responsavel_principal'):
                 responsavel = Responsavel.objects.get(user=user)
+
+
                 if responsavel.parentesco_do_responsavel:
                     return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
                 else:
                     messages.add_message(
                         request, constants.WARNING, 'Complete seu cadastrado!')
-                    return redirect(resolve_url('responsavel_edit', pk=responsavel.pk))
+
+
+                return redirect(resolve_url('responsavel_edit', pk=responsavel.pk))
             else:
                 return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
 

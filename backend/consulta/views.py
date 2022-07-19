@@ -5,6 +5,7 @@ from .forms import ConsultaForm, MedicamentoForm, PosConsultaForm
 from .models import Consulta, Medicamento, PosConsulta
 
 
+
 class ConsultaListView(LRM, ListView):
     model = Consulta
 
@@ -71,7 +72,12 @@ def posconsulta_delete(request):
 
 class MedicamentoListView(LRM, ListView):
     model = Medicamento
-    form_class = MedicamentoForm
+
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class MedicamentoDetailView(LRM, DetailView):
@@ -81,11 +87,6 @@ class MedicamentoDetailView(LRM, DetailView):
 class MedicamentoCreateView(LRM, CreateView):
     model = Medicamento
     form_class = MedicamentoForm
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.update({'user': self.request.user})
-        return kwargs
 
 
 class MedicamentoUpdateView(LRM, UpdateView):

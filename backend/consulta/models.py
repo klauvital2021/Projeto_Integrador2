@@ -92,10 +92,11 @@ class Medicamento(models.Model):
     )
 
     class Meta:
-        ordering = ('medicamento_prescrito',)
+        ordering = ('dependente', 'medicamento_prescrito')
 
     def __str__(self):
-        return f'{self.medicamento_prescrito}'
+        #return f'{self.medicamento_prescrito}'
+        return f'{self.medicamento_prescrito} - {self.dependente}'
 
     def get_absolute_url(self):
         return reverse("medicamento_detail", kwargs={"pk": self.id})
